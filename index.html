@@ -48,6 +48,24 @@
         <p><section id="code1">
             <h2>IP count</h2>
             <pre><code>
+commands 
+pwd
+ls
+//Log file ko hadoop me dalna
+hadoop fs -put Downloads/log.txt log2.txt
+
+//jar run karna input pr -> then given to folder out2
+hadoop jar ipcount2.jar ipcount2.ipcount2 log2.txt /out2
+
+// check out2 folder
+hadoop fs -ls /out2
+
+// run output file
+hadoop fs -cat /out2/part-r-00000
+
+
+code
+
                 package IPProcess;
 import java.io.IOException;
 import java.util.StringTokenizer;
