@@ -392,11 +392,60 @@
         </section></p>
     </section>
     <section id="code3">
-        <h2>Mapreduce</h2>
+        <h2>fb </h2>
         <p><section id="code3">
-            <h2>Mapreduce</h2>
+            <h2>facebook</h2>
             <pre><code>
-
+                import pandas as pd
+                d=pd.read_csv('./Datasets/fb.csv')
+                d
+                print(type(d))
+                d.shape
+                d.head(6)
+                d.tail(9)
+                d.iloc[1:9,10:12]
+                x=d.iloc[2:12,1:6]
+                x
+                x.shape
+                d.iloc[2:8,[1,3,5,7,9]]
+                d.loc[:,'Paid']
+                d[['Type','Page total likes','Category']]
+                d.columns
+                p=[]
+                p.extend(range(3,6))
+                p.extend(range(80,90))
+                d.iloc[p,2:8] 
+                X=d[['Page total likes', 'Type', 'Category', 'Post Month', 'Post Weekday', 'Paid','like','comment','share']]   
+                X.shape 
+                Z=X[X['like']>128]
+                Z       
+                Z.shape
+                Z.head(3)   
+                Z=X[(X['comment']>40) & (X['share']>80)]
+                Z
+                Z.shape
+                Z.to_csv('output.csv', index=False)
+                Z.to_html('output.html', index=False) 
+                nd=pd.read_csv('./Datasets/newfb.csv')
+                nd.shape
+                d.shape    
+                merged=pd.concat([d,nd])   
+                merged.shape  
+                Y=d.drop(['Post Month','Category','Post Weekday','Post Hour','share'], axis=1)  
+                Y.shape   
+                Y=d.drop([1,2,4,6,7,8,9,11])     
+                Y.shape     
+                Y=Z.sort_values(by='like', ascending=False)     
+                Y=X.T
+                Y.shape   
+                Z.melt()     
+                Z.melt(id_vars='Category')      
+                Z.melt(id_vars=['Category','Post Month'])     
+                Y=pd.get_dummies(Z)
+                Y.shape
+                Y.head(8)    
+                dir(Z)      
+                len(dir(Z))
     
             </code></pre>
         </section></p>
