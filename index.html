@@ -31,87 +31,82 @@
 <body>
   
     <nav>
-        <a href="#code1">Mapreduce</a>
+        <a href="#code1">IP count</a>
         <a href="#code2">hive</a>
         <a href="#code3">facebook</a>
         <a href="#code4">airwuality</a>
         <a href="#code5">Code 5</a>
+        <a href="#code5">Code 6</a>
+        <a href="#code5">plot</a>
+        <a href="#code9">scrapper</a>
        
     </nav>
 
     <a href="https://drive.google.com/drive/folders/17pS2vXcG8KbIFaThOT7GSwm3Ramj5CHz?usp=sharing" download>Download all file</a>
     <section id="code1">
-        <h2>Mapreduce</h2>
+        <h2>IP Count</h2>
         <p><section id="code1">
-            <h2>Mapreduce</h2>
+            <h2>IP count</h2>
             <pre><code>
-    package WordCount;
-    
-    import java.io.IOException;
-    import java.util.StringTokenizer;
-    
-    import org.apache.hadoop.conf.Configuration;
-    import org.apache.hadoop.fs.Path;
-    import org.apache.hadoop.io.IntWritable;
-    import org.apache.hadoop.io.Text;
-    import org.apache.hadoop.mapreduce.Job;
-    import org.apache.hadoop.mapreduce.Mapper;
-    import org.apache.hadoop.mapreduce.Reducer;
-    import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-    import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-    
-    public class WordCount {
-    
-      public static class TokenizerMapper
-           extends Mapper&lt;Object, Text, Text, IntWritable&gt;{
-    
+                package IPProcess;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable; 
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job; 
+import org.apache.hadoop.mapreduce.Mapper; 
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.File0utputFormat;
+
+public class IPProcess {
+    public static class TokenizerMapper
+            extends Mapper<Object, Text, Text, Intwritable>{
         private final static IntWritable one = new IntWritable(1);
-        private Text word = new Text();
-    
-        public void map(Object key, Text value, Context context
-                        ) throws IOException, InterruptedException {
-                        
+        private Text word = new Text():
+
+        public void map (Object key, Text value, Context context
+                    ) throws IOException, InterruptedException {
             // logic starts here
             String[] tokens = value.toString().split(" ");
-                          
-            String ipAddress = tokens[0];
-    
-            word.set(ipAddress) ;
-            context.write(word, one) ;
-    
+            String ipAddress = tokens [0];
+            word.set (ipAddress) :
+            context.write(word, one) :
         }
-      }
-    
-      public static class IntSumReducer
-           extends Reducer&lt;Text,IntWritable,Text,IntWritable&gt; {
-        private IntWritable result = new IntWritable();
-    
-        public void reduce(Text key, Iterable&lt;IntWritable&gt; values,
-                           Context context
-                           ) throws IOException, InterruptedException {
-          int sum = 0;
-          for (IntWritable val : values) {
-            sum += val.get();
-          }
-          result.set(sum);
-          context.write(key, result);
+    }
+
+    public static class IntSumReducer
+            extends Reducer<Text, IntWritable, Text, IntWritable> {
+        private IntWritable result = new Intwritable();
+        public void reduce(Text key, Iterable<IntWritable> values,
+                Context context
+                ) throws IException, InterruptedException {
+            int sum = 0;
+            for (IntWritable val : values) {
+                sum += val.get();
+            }
+            result.set (sum);
+            context.write(key, result);
         }
-      }
-    
-      public static void main(String[] args) throws Exception {
+    }
+
+    public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "word count");
-        job.setJarByClass(WordCount.class);
-        job.setMapperClass(TokenizerMapper.class);
+        job.setJarByClass(IPProcess.class);
+        job.setMapperClass (TokenizerMapper.class);
         job.setCombinerClass(IntSumReducer.class);
-        job.setReducerClass(IntSumReducer.class);
+        job. setReducerclass(IntSumReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
         System.exit(job.waitForCompletion(true) ? 0 : 1);
-      }
     }
+}
             </code></pre>
         </section></p>
     </section>
@@ -548,9 +543,9 @@
             </code></pre>
         </section></p>
     </section>
-    <section id="code2">
+    <section id="code6">
         <h2>Mapreduce</h2>
-        <p><section id="code2">
+        <p><section id="code6">
             <h2>Mapreduce</h2>
             <pre><code>
 
@@ -558,17 +553,197 @@
             </code></pre>
         </section></p>
     </section>
-    <section id="code2">
-        <h2>Mapreduce</h2>
-        <p><section id="code2">
-            <h2>Mapreduce</h2>
+    <section id="code7">
+        <h2>graph</h2>
+        <p><section id="code7">
+            <h2>graph</h2>
             <pre><code>
-
+                # https://mitu.co.in/dataset
+                # download TableauPublic file from this link
+                import pandas as pd
+                import numpy as np
+                import matplotlib.pyplot as plt
+                import seaborn as sns
+                x = np.array([13,26,37,41,58,67,82])
+                y = np.array([23,27,31,46,58,62,79])
+                z = np.array([98,78,65,54,48,39,20])
+                Line Plot
+                plt.plot(x, y)
+                plt.plot(x, z)
+                plt.xlabel('First Value')
+                plt.ylabel('Second Value')
+                plt.title('Line Plot')
+                plt.plot(x, y, color = 'blue',label = '2023', marker = 'o', mfc = 'red',
+                        ls = '--', ms = 7)
+                plt.plot(x, z, color = 'black', label = '2024',marker = 'o', mfc = 'yellow',
+                        ls = '--', ms = 7)
+                # markers = -, >, <, ^, D, o
+                plt.grid()
+                plt.legend()
+                plt.xlabel('First Value')
+                plt.ylabel('Second Value')
+                plt.title('Line Plot')
+                plt.plot(x, z, color = 'black', marker = 'o', mfc = 'yellow',
+                        ls = '--', ms = 7)
+                # markers = -, >, <, ^, D, o
+                plt.grid()
+                Bar Graph
+                courses = ['java','python','R','C','C++']
+                students = [56,78,40,70,54]
+                plt.xlabel('Courses')
+                plt.ylabel('No. of Students Enrolled')
+                plt.title('Student Enrollment', fontsize = 20)
+                plt.bar(courses, students, color = 'black', width = 0.3,
+                       edgecolor = 'red', linewidth = 3, ls = ':', alpha = 0.5)
+                plt.grid()
+                Subplot
+                plt.figure(figsize=(16,10))
+                
+                plt.subplot(2,2,2)
+                plt.xlabel('First Value')
+                plt.ylabel('Second Value')
+                plt.title('Line Plot')
+                plt.plot(x, y, color = 'blue', marker = 'o', mfc = 'red',
+                        ls = '--', ms = 7)
+                
+                
+                plt.subplot(2,2,1)
+                plt.xlabel('First Value')
+                plt.ylabel('Second Value')
+                plt.title('Line Plot')
+                plt.plot(x, z, color = 'black', marker = 'o', mfc = 'yellow',
+                        ls = '--', ms = 7)
+                # markers = -, >, <, ^, D, o
+                Scatterplot
+                plt.xlabel('First Value')
+                plt.ylabel('Second Value')
+                plt.scatter(x, y, marker = '>')
+                plt.grid()
+                Pie Chart
+                mycolor = ['cyan', 'green', 'blue', 'skyblue', 'red']
+                plt.title('Pie Chart')
+                plt.pie(students, labels = courses, autopct = '%.2f%%',
+                       startangle=90, labeldistance= 1.1,radius = 0.8,
+                       colors = mycolor, shadow = True);
+                Box Plot
+                grades = [67, 61, 57, 58, 14, 69, 95, 53]
+                plt.grid()
+                plt.boxplot(grades)
+                ;
+                q3 = np.percentile(grades, 75)
+                q3
+                q1 = np.percentile(grades, 25)
+                q1
+                iqr = q3 - q1
+                
+                upper_bound = q3 + (1.5 * iqr)
+                lower_bound = q1 - (1.5 * iqr)
+                upper_bound
+                lower_bound
+                plt.figure(figsize=(16,10))
+                
+                plt.subplot(2,2,1)
+                plt.xlabel('First Value')
+                plt.ylabel('Second Value')
+                plt.title('Line Plot')
+                plt.plot(x, y, color = 'blue',label = '2023', marker = 'o', mfc = 'red',
+                        ls = '--', ms = 7)
+                plt.plot(x, z, color = 'black', label = '2024',marker = 'o', mfc = 'yellow',
+                        ls = '--', ms = 7)
+                # markers = -, >, <, ^, D, o
+                plt.grid()
+                plt.legend()
+                
+                
+                plt.subplot(2,2,2)
+                plt.xlabel('Courses')
+                plt.ylabel('No. of Students Enrolled')
+                plt.title('Student Enrollment', fontsize = 20)
+                plt.bar(courses, students, color = 'black', width = 0.3,
+                       edgecolor = 'red', linewidth = 3, ls = ':', alpha = 0.5)
+                plt.grid()
+                
+                
+                plt.subplot(2,2,3)
+                plt.xlabel('First Value')
+                plt.ylabel('Second Value')
+                plt.scatter(x, y, marker = '>')
+                plt.grid()
+                
+                
+                plt.subplot(2,2,4)
+                mycolor = ['cyan', 'green', 'blue', 'skyblue', 'red']
+                plt.title('Pie Chart')
+                plt.pie(students, labels = courses, autopct = '%.2f%%',
+                       startangle=90, labeldistance= 1.1,radius = 0.8,
+                       colors = mycolor, shadow = True);
+                
+                plt.savefig('MY FIRST PLOT')
+                HeatMap
+                tips = sns.load_dataset('tips')
+                tips
+                data = {
+                    'cat1': [1,2,3,4,5],
+                    'cat2': [5,4,3,2,1],
+                    'cat3': [2,3,1,5,4],
+                    'cat4': [4,5,2,3,1]
+                }
+                df = pd.DataFrame(data)
+                sns.heatmap(df)
+                corr = df.corr()
+                corr
+                Violin Plot
+                sns.violinplot(x = 'day', y = 'total_bill', data = tips)
+                sns.pairplot(tips, hue = 'sex', palette= 'Set1')
+                 
     
             </code></pre>
         </section></p>
     </section>
-   
+ 
+    <section id="code9">
+        <h2>scrapper</h2>
+        <p><section id="code9">
+            <h2>scrapper</h2>
+            <pre><code>
+                from bs4 import BeautifulSoup as bs
+                import requests
+                # link = 'https://open.spotify.com/playlist/6EFhmXtXvZYh0wAi1ATZ16'
+                link = 'https://www.amazon.in/gp/product/B09691GYRQ/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1'
+                page = requests.get(link,timeout=50)
+                page
+                soup = bs(page.content,'html.parser')
+                print(soup.prettify())
+                names = soup.find_all('span',class_='a-profile-name')
+                names
+                cust = []
+                for i in names:
+                    cust.append(i.get_text())
+                cust
+                title = soup.find_all('a',class_='review-title-content')
+                title
+                rating = []
+                reviews = []
+                for i in title:
+                    curr = i.get_text()
+                    now = curr.split('\n')
+                    print(now)
+                    rating.append(now[0])
+                    reviews.append(now[1])
+                import pandas as pd
+                df = pd.DataFrame()
+                df['Customer Name'] = cust[:10]
+                df['Rating'] = rating
+                df['Reviews'] = reviews
+                
+                df
+                 
+                 
+                 
+    
+            </code></pre>
+        </section></p>
+    </section>
    
 </body>
 </html>
