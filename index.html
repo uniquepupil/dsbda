@@ -32,11 +32,12 @@
   
     <nav>
         <a href="#code1">IP count</a>
-        <a href="#code2">hive</a>
+        <a href="#code2">hbase</a>
+        <a href="#code8">hive</a>
         <a href="#code3">facebook</a>
         <a href="#code4">airwuality</a>
-        <a href="#code5">Code 5</a>
-        <a href="#code5">Code 6</a>
+        
+        <a href="#code5">mapper reducer</a>
         <a href="#code5">plot</a>
         <a href="#code9">scrapper</a>
        
@@ -129,9 +130,9 @@ public class IPProcess {
         </section></p>
     </section>
     <section id="code2">
-        <h2>HIVE</h2>
+        <h2>Hbase</h2>
         <p><section id="code2">
-            <h2>HIVE</h2>
+            <h2>Hbase</h2>
             <pre><code>
                 hbase(main):002:0> create 'flight','finfo','fsch'
 
@@ -551,56 +552,103 @@ public class IPProcess {
             </code></pre>
         </section></p>
     </section>
-    <div>
-        <h1> ASS 2 </h1>
-         <pre><code>
-            hive
-            create database mydb;
-            use mydb;
-            
-            //CREATE SIMPLE TABLE
-            create table flight(fno int,year int, dest varchar(10),delay float);
-            
-            //alter table flight rename to air_flight;
-            
-            //alter table air_flight add columns(source varchar(10));
-            
-            //drop table flight;
-            
-            //CREATE TABLE IN FORMAT
-            create table flight(fno int,year int, dest varchar(10),delay float);
-            row format delimited
-            fields terminated by ','
-            lines terminated by '\n'
-            stored as textfile;
-            
-            //insert into flight values(123,2009,"mumbai",1.0)
-            
-            //=======================
-            load data local inpath "f.txt"
-            overwrite into table flight;
-            
-            //JOIN
-            select a.fno,a.year,a.dest,a.delay,b.source
-            from flight a join nflight b
-            on (a.fno=b.fno):
-            
-            //CREATE INDEX TABLE
-            create index flight_index on table flight (fno)
-                > as 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler'
-                > WITH DEFERRED REBUILD;
-            
-            //AVG
-            select avg(year) as yearkaaverage
-            from flight;
-    </code></pre>
-    </div>
+
+    <section id="code8">
+        <h2>hive</h2>
+        <p><section id="code8">
+            <h2>hive</h2>
+            <pre><code>
+                hive
+                create database mydb;
+                use mydb;
+                
+                //CREATE SIMPLE TABLE
+                create table flight(fno int,year int, dest varchar(10),delay float);
+                
+                //alter table flight rename to air_flight;
+                
+                //alter table air_flight add columns(source varchar(10));
+                
+                //drop table flight;
+                
+                //CREATE TABLE IN FORMAT
+                create table flight(fno int,year int, dest varchar(10),delay float);
+                row format delimited
+                fields terminated by ','
+                lines terminated by '\n'
+                stored as textfile;
+                
+                //insert into flight values(123,2009,"mumbai",1.0)
+                
+                //=======================
+                load data local inpath "f.txt"
+                overwrite into table flight;
+                
+                //JOIN
+                select a.fno,a.year,a.dest,a.delay,b.source
+                from flight a join nflight b
+                on (a.fno=b.fno):
+                
+                //CREATE INDEX TABLE
+                create index flight_index on table flight (fno)
+                    > as 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler'
+                    > WITH DEFERRED REBUILD;
+                
+                //AVG
+                select avg(year) as yearkaaverage
+                from flight;
+    
+            </code></pre>
+        </section></p>
+    </section>
     <section id="code5">
         <h2>Mapreduce</h2>
         <p><section id="code5">
             <h2>Mapreduce</h2>
             <pre><code>
+                gedit mapper.py
 
+
+                import sys
+                for line in sys.stdin:
+                    line = line.strip()
+                    words = line.split()
+                    for word in words:
+                        print '%s\t%s' % (word, 1)
+
+
+                gedit word.txt
+                type words  
+                
+                
+                cat word.txt | python mapper.py
+
+
+                gedit reducer.py
+
+                import sys
+                
+                current_word = ""
+                current_count = 0
+                word = ""
+                
+                for line in sys.stdin:
+                    lines = line.strip()
+                    word,count = line.split()
+                    
+                    count = int(count)
+                    if current_word!="":
+                        if current_word == word:
+                            current_count+=count
+                        else:
+                            print '%s\t%s' % (current_word,current_count)
+                            current_word = word
+                            current_count = count
+                    else:
+                        current_word  = word
+                        current_count = count
+                
+                print '%s\t%s' % (current_word,current_count)
     
             </code></pre>
         </section></p>
